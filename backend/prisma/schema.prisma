@@ -1,0 +1,181 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ==========================================
+// Category = Game (e.g., Roblox, Genshin Impact, Mobile Legends)
+// ==========================================
+model Category {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  slug        String   @unique
+  iconUrl     String?  @map("icon_url")
+  description String?
+  isActive    Boolean  @default(true) @map("is_active")
+  sortOrder   Int      @default(0) @map("sort_order")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // Dynamic fields for account input (Step 1 of checkout)
+  // Stored as JSON array: [{ "name": "User ID", "key": "userId", "type": "text", "required": true }, ...]
+  accountFields String? @map("account_fields")
+
+  products Product[]
+
+  @@index([name])
+  @@index([isActive])
+  @@index([sortOrder])
+  @@map("categories")
+}
+
+// ==========================================
+// Product = Item within a Category/Game
+// e.g., 100 Robux, 500 Robux, 1000 Diamonds
+// ==========================================
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  price       Int
+  description String
+  imageUrl    String   @map("image_url")
+  isActive    Boolean  @default(true) @map("is_active")
+  sortOrder   Int      @default(0) @map("sort_order")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  categoryId String   @map("category_id")
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  orderItems OrderItem[]
+
+  @@index([name])
+  @@index([categoryId])
+  @@index([isActive])
+  @@map("products")
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+model OrderItem {
+  id        String @id @default(uuid())
+  orderId   String @map("order_id")
+  productId String @map("product_id")
+  quantity  Int
+  price     Int
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+
+  @@map("order_items")
+}
+
+model Order {
+  id            String      @id
+  totalPrice    Int         @map("total_price")
+  status        OrderStatus @default(PENDING)
+  createdAt     DateTime    @default(now()) @map("created_at")
+
+  // Account info (JSON) - stores the dynamic fields from Step 1
+  // e.g., { "userId": "12345", "server": "Asia" }
+  accountData   String?     @map("account_data")
+
+  // WhatsApp contact for transaction issues
+  whatsapp      String?
+
+  // Payment method chosen by user
+  paymentMethod String?     @map("payment_method")
+
+  userId        String?     @map("user_id")
+  user          User?       @relation(fields: [userId], references: [id])
+
+  items         OrderItem[]
+  payment       Payment?
+  messages      ChatMessage[]
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("orders")
+}
+
+model ChatMessage {
+  id        String   @id @default(uuid())
+  orderId   String   @map("order_id")
+  sender    String   // "user" or "admin"
+  content   String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@index([createdAt])
+  @@map("chat_messages")
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+model Payment {
+  id         String        @id @default(uuid())
+  orderId    String        @unique @map("order_id")
+  method     String?
+  externalId String?       @map("external_id")
+  paymentUrl String?       @map("payment_url")
+  qrUrl      String?       @map("qr_url")
+  status     PaymentStatus @default(PENDING)
+  paidAt     DateTime?     @map("paid_at")
+
+  order Order @relation(fields: [orderId], references: [id])
+
+  @@map("payments")
+}
+
+enum Role {
+  user
+  admin
+}
+
+model User {
+  id           String   @id @default(uuid())
+  name         String
+  username     String   @unique
+  email        String   @unique
+  whatsapp     String?
+  passwordHash String   @map("password_hash")
+  role         Role     @default(user)
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  orders       Order[]
+
+  @@map("users")
+}
+
+// ==========================================
+// Store Settings (singleton config)
+// ==========================================
+model StoreSettings {
+  id              String   @id @default("default")
+  storeName       String   @default("Fazsee Store") @map("store_name")
+  qrisImageUrl    String?  @map("qris_image_url")
+  bankAccounts    String?  @map("bank_accounts") // JSON: [{ provider, number, holderName }]
+  waNumber        String?  @map("wa_number")
+  waNotifyOnOrder Boolean  @default(true) @map("wa_notify_on_order")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("store_settings")
+}
