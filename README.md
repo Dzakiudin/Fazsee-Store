@@ -1,199 +1,217 @@
-# Fazsee Store 🎮
-
-**Platform top-up game & pembelian produk digital** — dibangun dengan arsitektur Full-Stack modern, PWA-ready, dan tampilan premium.
-
 <div align="center">
-  <img src="docs/home.png" alt="Home Page" width="200" />
-  &nbsp;&nbsp;
-  <img src="docs/catalog.png" alt="Catalog" width="200" />
-  &nbsp;&nbsp;
-  <img src="docs/histori transaksi.png" alt="Order History" width="200" />
-  &nbsp;&nbsp;
-  <img src="docs/profile.png" alt="Profile" width="200" />
+  <img src="docs/banner-promosi.png" alt="Fazsee Store — Top up game cepat dan praktis" width="100%" />
+
+  <p><strong>Platform top up game dan produk digital dengan pengalaman belanja yang praktis.</strong></p>
+  <p>
+    <a href="#fitur-utama">Fitur</a> ·
+    <a href="#tampilan-aplikasi">Tampilan</a> ·
+    <a href="#teknologi">Teknologi</a> ·
+    <a href="#menjalankan-proyek">Instalasi</a> ·
+    <a href="#kontak">Kontak</a>
+  </p>
 </div>
 
 ---
 
-## ✨ Fitur Lengkap
+## Tentang Proyek
 
-### 🛒 Storefront
-- **Katalog Game Dinamis** — Kategori dengan ikon & deskripsi, form kustom per-game (User ID, Server Zone, dll)
-- **Checkout Wizard** — Multi-step (Akun → Produk → Qty → Payment → Contact → Review)
-- **Wishlist** — Simpan game favorit ke local storage
-- **Dark Mode** — Toggle tema gelap/terang, persisten
+**Fazsee Store** adalah aplikasi *web* untuk pembelian produk digital dan *top up* game. Proyek ini menggunakan React pada sisi antarmuka serta NestJS untuk API, dengan PostgreSQL dan Prisma sebagai lapisan data. Antarmuka mendukung tema gelap/terang, pencarian katalog, daftar favorit, riwayat pesanan, pembayaran, serta area admin.
 
-### 💳 Sistem Pembayaran
-- **QRIS Payment** — Gambar QR dinamis, dikelola dari admin dashboard
-- **Transfer Manual** — Rekening bank/e-wallet dikonfigurasi dari admin
-- **Countdown Timer** — Batas waktu pembayaran 15 menit
-- **Upload Bukti Bayar** — User upload screenshot pembayaran
+> **Status:** proyek aplikasi yang sedang dikembangkan. Ketersediaan layanan produksi dan konfigurasi pembayaran bergantung pada deployment serta pengaturan lingkungan.
 
-### 📦 Manajemen Pesanan (Shopee-style)
-- **Tab Status** — Semua / Menunggu / Dibayar / Diproses / Selesai / Gagal
-- **Order Timeline** — Progress visual dari pembelian sampai selesai
-- **Auto-redirect** — Klik order PENDING → langsung ke halaman pembayaran
+## Fitur Utama
 
-### 💬 Live Chat P2P
-- **Chat Real-time** — Komunikasi admin ↔ buyer per-order
-- **Auto-close** — Sesi chat terkunci otomatis saat order selesai/gagal
+### 🛍️ Pengalaman Belanja
+- Katalog kategori game dan produk digital.
+- Pencarian kategori dan daftar produk populer.
+- Alur pemesanan dengan informasi akun yang dapat disesuaikan.
+- Daftar favorit (*wishlist*) dan tema gelap/terang.
+- Halaman profil, pesanan, pembayaran, dan konfirmasi.
 
-### 📊 Admin Dashboard
-- **Analytics** — Revenue chart 7 hari, stat cards, top produk, distribusi status
-- **Manajemen Pesanan** — Terima/tolak order dengan satu klik
-- **CRUD Kategori & Produk** — Tambah/edit/arsipkan langsung dari dashboard
-- **Pengaturan Toko** — Upload QRIS, kelola rekening bank, nomor WA admin
-- **WhatsApp Notifikasi** — Auto-buka WA dengan pesan template saat status order berubah
+### 💳 Pembayaran dan Pesanan
+- Dukungan konfigurasi pembayaran QRIS dan transfer manual melalui pengaturan toko.
+- Pengunggahan bukti pembayaran.
+- Status pesanan: menunggu, dibayar, diproses, selesai, atau gagal.
+- Linimasa pesanan dan percakapan terkait pesanan.
 
-### 🔒 Keamanan & Performa
-- **JWT Authentication** — Role-based (User / Admin)
-- **Rate Limiting** — Throttle 100 req/menit
-- **Helmet + Compression** — Security headers & GZIP
-- **SWR Caching** — Stale-While-Revalidate untuk zero loading
-- **Progressive Web App** — Installable, offline-capable
-- **SEO Optimized** — OpenGraph, Twitter Cards, meta tags
+### 🧑‍💻 Dashboard Admin
+- Ringkasan analitik penjualan.
+- Pengelolaan kategori, produk, dan pesanan.
+- Pengaturan toko, termasuk informasi pembayaran dan kontak WhatsApp.
+- Notifikasi WhatsApp yang membantu proses tindak lanjut pesanan.
 
----
+### ⚙️ Keamanan dan Performa
+- Autentikasi menggunakan JWT dan pembatasan akses berdasarkan peran.
+- Validasi permintaan melalui ekosistem NestJS.
+- *Caching* data di sisi antarmuka menggunakan SWR.
+- Pemisahan pemuatan halaman melalui *lazy loading*.
+- Dukungan *Progressive Web App* (PWA) melalui `vite-plugin-pwa`.
+- Header keamanan dan kompresi pada backend.
 
-## 🛠️ Tech Stack
+## Tampilan Aplikasi
 
-| Layer | Teknologi |
-|-------|-----------|
-| **Frontend** | React 19, Vite, Tailwind CSS, SWR, React Router, React Helmet |
-| **Backend** | NestJS 11, Prisma ORM 7, PostgreSQL, Passport.js |
-| **Storage** | Cloudinary (images), Multer (upload) |
-| **PWA** | vite-plugin-pwa, Service Worker, Web Manifest |
-| **Deployment** | Vercel (frontend), Railway/Render (backend) |
+<div align="center">
+  <table>
+    <tr><td align="center"><strong>Beranda</strong></td><td align="center"><strong>Katalog</strong></td></tr>
+    <tr><td><img src="docs/home.png" alt="Tampilan beranda Fazsee Store" width="320" /></td><td><img src="docs/catalog.png" alt="Tampilan katalog Fazsee Store" width="320" /></td></tr>
+    <tr><td align="center"><strong>Riwayat Transaksi</strong></td><td align="center"><strong>Profil Pengguna</strong></td></tr>
+    <tr><td><img src="docs/histori%20transaksi.png" alt="Tampilan riwayat transaksi" width="320" /></td><td><img src="docs/profile.png" alt="Tampilan profil pengguna" width="320" /></td></tr>
+  </table>
+</div>
 
----
+## Teknologi
 
-## 🚀 Quick Start (Local Development)
+| Bagian | Teknologi |
+|---|---|
+| Frontend | React 19, Vite, Tailwind CSS, React Router, SWR |
+| Backend API | NestJS 11, TypeScript |
+| Database | PostgreSQL |
+| ORM | Prisma |
+| Autentikasi | Passport.js, JWT, bcrypt |
+| Penyimpanan gambar | Cloudinary dan Multer |
+| PWA | `vite-plugin-pwa`, Web App Manifest, Service Worker |
+| Deployment | Frontend dapat dipasang di layanan statis; backend memerlukan layanan Node.js dan database PostgreSQL |
 
-### Prasyarat
-- **Node.js** ≥ 18.x
-- **Git**
+## Struktur Proyek
 
-### 1. Clone & Install
-
-```bash
-git clone https://github.com/Dzakiudin/Fajar-Store.git
-cd Fajar-Store
+```text
+Fazsee-Store/
+├── frontend/
+│   ├── public/                 # Aset statis dan ikon aplikasi
+│   ├── src/
+│   │   ├── components/         # Komponen antarmuka
+│   │   ├── layouts/            # Navigasi dan kerangka halaman
+│   │   ├── pages/              # Halaman pengguna dan admin
+│   │   └── services/            # Integrasi API
+│   ├── .env.example
+│   └── package.json
+├── backend/
+│   ├── src/                    # Modul API NestJS
+│   ├── prisma/                 # Skema database Prisma
+│   ├── .env.example
+│   └── package.json
+├── docs/                       # Tangkapan layar dan banner README
+└── README.md
 ```
 
-### 2. Setup Backend
+## Menjalankan Proyek
+
+### Prasyarat
+
+- Node.js versi yang didukung oleh dependensi proyek.
+- npm.
+- PostgreSQL atau database PostgreSQL yang tersedia melalui `DATABASE_URL`.
+- Kredensial Cloudinary bila fitur unggah gambar digunakan.
+
+### 1. Clone repositori
+
+```bash
+git clone https://github.com/Dzakiudin/Fazsee-Store.git
+cd Fazsee-Store
+```
+
+### 2. Konfigurasi backend
 
 ```bash
 cd backend
 npm install
-cp .env.example .env
-# Edit .env → isi DATABASE_URL, JWT_SECRET, CLOUDINARY keys
 ```
 
-**Start database (Prisma Dev):**
-```bash
-npx prisma dev
-```
+Salin `.env.example` menjadi `.env`, kemudian sesuaikan nilai `DATABASE_URL`, `JWT_SECRET`, dan kredensial Cloudinary sesuai lingkungan lokal. Jangan mengunggah berkas `.env` atau kredensial rahasia ke repositori.
 
-**Di terminal baru, sync schema & start server:**
+Setelah database tersedia dan `DATABASE_URL` sudah benar, jalankan:
+
 ```bash
-cd backend
 npx prisma db push
 npx prisma generate
 npm run start:dev
 ```
 
-> API berjalan di `http://localhost:3000`
+Backend berjalan pada `http://localhost:3000` sesuai konfigurasi bawaan.
 
-### 3. Setup Frontend
+### 3. Konfigurasi frontend
+
+Buka terminal baru dari direktori utama proyek:
 
 ```bash
 cd frontend
 npm install
-cp .env.example .env
-# Edit .env → pastikan VITE_API_URL=http://localhost:3000/api
+```
+
+Salin `frontend/.env.example` menjadi `frontend/.env`, lalu pastikan URL API sesuai alamat backend, misalnya:
+
+```dotenv
+VITE_API_URL=http://localhost:3000/api
+```
+
+Jalankan aplikasi frontend:
+
+```bash
 npm run dev
 ```
 
-> Frontend berjalan di `http://localhost:5173`
+Vite biasanya menampilkan alamat lokal, umumnya `http://localhost:5173`.
 
-### Quick Run (3 terminal):
-```
-Terminal 1: cd backend && npx prisma dev
-Terminal 2: cd backend && npm run start:dev
-Terminal 3: cd frontend && npm run dev
-```
----
+### Perintah Pengembangan
 
-## 📁 Struktur Project
+| Direktori | Perintah | Kegunaan |
+|---|---|---|
+| `frontend` | `npm run dev` | Menjalankan server pengembangan |
+| `frontend` | `npm run build` | Membuat hasil build produksi |
+| `frontend` | `npm run lint` | Memeriksa kode frontend |
+| `backend` | `npm run start:dev` | Menjalankan backend dalam mode pengembangan |
+| `backend` | `npm run build` | Membuat build backend |
+| `backend` | `npm test` | Menjalankan pengujian backend |
 
-```
-Fajar-Store/
-├── frontend/                # React + Vite
-│   ├── src/
-│   │   ├── components/      # Reusable components
-│   │   │   ├── admin/       # Admin dashboard tabs
-│   │   │   └── wizard/      # Checkout wizard steps
-│   │   ├── layouts/         # Navbar, BottomNav, Footer
-│   │   ├── pages/           # Route pages
-│   │   ├── services/        # API service layer
-│   │   └── utils/           # Formatters, helpers
-│   ├── public/              # Static assets (QRIS, OG image)
-│   └── vercel.json          # Vercel deployment config
-│
-├── backend/                 # NestJS API
-│   ├── src/
-│   │   ├── admin/           # Admin endpoints + analytics
-│   │   ├── auth/            # JWT + Passport authentication
-│   │   ├── categories/      # Game categories CRUD
-│   │   ├── cloudinary/      # Image upload service
-│   │   ├── orders/          # Order management
-│   │   ├── payments/        # Payment processing
-│   │   ├── products/        # Product CRUD
-│   │   ├── settings/        # Store settings (QRIS, bank)
-│   │   └── common/          # Guards, filters, pipes
-│   ├── prisma/              # Schema + migrations
-│   └── Dockerfile           # Production Docker build
-│
-└── docs/                    # Screenshots
-```
+## Konfigurasi Lingkungan
 
----
+**Frontend (`frontend/.env`)**
 
-## 📄 API Endpoints
+| Variabel | Keterangan |
+|---|---|
+| `VITE_API_URL` | URL dasar API backend, termasuk prefiks `/api` bila digunakan |
 
-### Public
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/auth/register` | Register user |
-| `POST` | `/api/auth/login` | Login → JWT token |
-| `GET` | `/api/categories` | List all categories |
-| `GET` | `/api/categories/:id` | Category detail + products |
-| `GET` | `/api/products` | List products |
-| `GET` | `/api/settings` | Store settings (QRIS, bank) |
+**Backend (`backend/.env`)**
 
-### Authenticated (User)
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/auth/profile` | Get user profile |
-| `POST` | `/api/orders` | Create order |
-| `GET` | `/api/orders/:id` | Get order detail |
-| `POST` | `/api/payments/upload-proof` | Upload payment proof |
-| `GET` | `/api/orders/:id/messages` | Get chat messages |
-| `POST` | `/api/orders/:id/messages` | Send chat message |
+| Variabel | Keterangan |
+|---|---|
+| `DATABASE_URL` | URL koneksi PostgreSQL |
+| `JWT_SECRET` | Kunci rahasia untuk penandatanganan token JWT; gunakan nilai acak yang kuat |
+| `JWT_EXPIRATION` | Masa berlaku token, misalnya `24h` |
+| `CLOUDINARY_CLOUD_NAME` | Nama akun Cloudinary |
+| `CLOUDINARY_API_KEY` | Kunci API Cloudinary |
+| `CLOUDINARY_API_SECRET` | Rahasia API Cloudinary |
+| `PORT` | Port server backend; konfigurasi contoh menggunakan `3000` |
 
-### Admin Only
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/admin/analytics` | Dashboard analytics |
-| `GET` | `/api/admin/orders` | All orders |
-| `PATCH` | `/api/admin/orders/:id/status` | Update order status |
-| `CRUD` | `/api/admin/categories` | Manage categories |
-| `CRUD` | `/api/admin/products` | Manage products |
-| `PATCH` | `/api/settings` | Update store settings |
+## API
+
+Frontend menggunakan API dengan prefiks yang ditentukan dalam `VITE_API_URL`. Area API mencakup autentikasi, kategori, produk, pesanan, pembayaran, pesan pesanan, pengaturan toko, dan endpoint admin. Detail endpoint dapat berubah mengikuti implementasi backend; periksa modul di `backend/src/` untuk kontrak API yang terbaru.
+
+## Deployment
+
+Deployment memerlukan konfigurasi frontend dan backend secara terpisah:
+
+1. Deploy frontend dan atur `VITE_API_URL` ke URL backend produksi.
+2. Deploy backend pada lingkungan yang mendukung Node.js.
+3. Sediakan PostgreSQL dan isi `DATABASE_URL` dengan koneksi produksi.
+4. Atur rahasia autentikasi serta kredensial layanan gambar sebagai *environment variables*.
+5. Pastikan konfigurasi CORS, HTTPS, domain API, serta penyimpanan unggahan sesuai lingkungan produksi.
+
+Pastikan pengujian integrasi, alur pembayaran, dan kontrol akses selesai sebelum membuka aplikasi untuk pengguna umum.
+
+## Kontribusi
+
+Perubahan dan perbaikan dapat diajukan melalui *issue* atau *pull request*. Sertakan konteks perubahan, langkah reproduksi untuk bug, dan tangkapan layar untuk perubahan antarmuka bila relevan.
+
+## Kontak
+
+Untuk pertanyaan terkait proyek, kunjungi profil pengembang atau repositori:
+
+- GitHub: [@Dzakiudin](https://github.com/Dzakiudin)
+- Repository: [Dzakiudin/Fazsee-Store](https://github.com/Dzakiudin/Fazsee-Store)
 
 ---
 
-## 📄 Lisensi
-
-© 2026 Ahmad Dzakiudin. Semua hak dilindungi.
-
-Kode ini bersifat **proprietary** — tidak diizinkan untuk digunakan dalam produksi komersial tanpa izin tertulis dari pemilik.
+<div align="center">
+  <sub>© 2026 Fazsee Store · Dikembangkan oleh Ahmad Dzakiudin</sub>
+</div>
