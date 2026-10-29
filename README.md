@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="docs/banner-promosi.png" alt="Fazsee Store — Top up game cepat dan praktis" width="100%" />
+  <img src="docs/banner-promosi.svg" alt="Fazsee Store — Top up game cepat dan praktis" width="100%" />
 
   <p><strong>Platform top up game dan produk digital dengan pengalaman belanja yang praktis.</strong></p>
   <p>
